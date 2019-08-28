@@ -1,6 +1,7 @@
 # Pig Dice
 
 #### Intermediate JavaScript - _Pig Dice, 8/28/2019_
+** Pair program: Misaki Koonce, Bahay Gulle Bilgi and Zubeyde Sisman
 
 ## Description
 Build a application of Pig dice (using HTML, CSS, Bootstrap, JavaScript and jQuery)
@@ -9,19 +10,17 @@ Write a program where two users can play Pig dice against each other. Don't forg
 
 
 ## Website should have:
-- Use constructor and prototype that includes methods for deposit and withdrawal
+- If the player rolls a 1, they score nothing and it becomes the next player's turn.
 
-- A constructor name will be `BankAccount`
+- If the player rolls any other number, it is added to their turn total and the player's turn continues.
 
-- Show account creation form, initial deposit form, withdrawal transaction form and current balance form
+- If a player chooses to "hold", their turn total is added to their score, and it becomes the next player's turn.
 
-## specifications
+- The first player to score 100 or more points wins.
 
 
 ## Setup/Installation Requirements
 * Clone this repo:
-`$git clone https://github.com/misakimichy/pig-dice.git`
-
 * Navigate to the top level of the cloned directory.
 * Then, open your preferred web browser.
 
@@ -29,7 +28,10 @@ Write a program where two users can play Pig dice against each other. Don't forg
 * Work in progress.
 
 ## Support and contact details
- misaki.koonce@gmail.com
+misaki.koonce@gmail.com
+bahayg@gmail.com
+zubeydesisman@gmail.com
+
 
 ## Technologies Used
 Git GitHub HTML CSS Bootstrap jQuery and JavaScript
