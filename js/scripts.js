@@ -9,22 +9,37 @@ function User (diceNumber, scoreTotal, turnTotal, userNumber) {
 
 User.prototype.isOne = function(diceRoll) {
   this.diceNumber = diceRoll;
-  console.log("current dice Number: ", this.diceNumber);
   if(this.diceNumber === 1) {
-    this.turnTotal = 0;
     switchUser();
+    $("input#throw-total").val("0");
   } else {
     return this.diceNumber;
   }
 }
 
 User.prototype.calcTurnTotal = function() {
-    this.turnTotal += this.diceNumber;
+  if(this.diceNumber === 1) {
+    this.turnTotal = 0
+
+    //$("input#throw-total").val("");
+  } else if(this.turnTotal += this.diceNumber){
+    $("input#throw-total").val(this.turnTotal);
+  }
 }
 
-// Todo: Check through dice and update turn total, continue the user throw 1 or click hold
+User.prototype.sumScore = function() {
+  if(this.scoreTotal === 0) {
+    this.scoreTotal = this.turnTotal;
+  } else {
+    this.scoreTotal += this.turnTotal;
+  }
 
-// Todo: if the user get 1, turn total will be cleared out and turn ends and
+  console.log('score total: ', this.scoreTotal);
+}
+
+// Check through dice and update turn total, continue the user throw 1 or click hold
+
+// if the user get 1, turn total will be cleared out and turn ends and
 // if the user click hold, turn total will be added to sore total then turn ends
 // every times turn ends turnNumber++
 
@@ -33,17 +48,19 @@ User.prototype.calcTurnTotal = function() {
 // Get random dice number
 function throwDice () {
   var diceRoll = Math.floor( Math.random() * 6 ) +1;
-  console.log(diceRoll);
+  $("input#dice").val(diceRoll);
   currentUser.isOne(diceRoll);
+  currentUser.calcTurnTotal();
 }
 
 // User Interface logic
 function clickHold() {
   $("input#dice").val("");
-    $("input#throw-total").val("");
-    currentUser.scoreTotal += currentUser.turnTotal;
-    $("input#score1").text(currentUser.scoreTotal);
-    $("input#score2").text(currentUser.scoreTotal);
+  $("input#throw-total").val("");
+  //currentUser.scoreTotal += currentUser.turnTotal;
+  $("input#score1").val(currentUser.scoreTotal);
+  $("input#score2").val(currentUser.scoreTotal);
+  currentUser.sumScore();
 }
 
 function switchUser() {
@@ -52,6 +69,7 @@ function switchUser() {
   } else {
     currentUser = user1;
   }
+  currentUser.turnTotal = 0;
   console.log("CurrentUser is ", currentUser.userNumber);
 }
 
@@ -62,12 +80,11 @@ var currentUser = user1;
 
 
 $(document).ready(function(){
-    console.log("CurrentUser is ", currentUser.userNumber);
+  console.log("CurrentUser is ", currentUser.userNumber);
   $("button#hold").on("click", function (event){
     event.preventDefault();
     clickHold();
     switchUser();
-    console.log("CurrentUser is ", currentUser.userNumber);
   });
 
   $("button#throw").on("click", function(event){
