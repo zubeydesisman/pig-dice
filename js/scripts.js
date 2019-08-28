@@ -7,8 +7,10 @@ function User (diceNumber, scoreTotal, turnTotal, userNumber) {
   this.userNumber = userNumber
 }
 
-User.prototype.isOne = function() {
-  if(this.diceNumber === 1){
+User.prototype.isOne = function(diceRoll) {
+  this.diceNumber = diceRoll;
+  console.log("current dice Number: ", this.diceNumber);
+  if(this.diceNumber === 1) {
     this.turnTotal = 0;
     switchUser();
   } else {
@@ -32,8 +34,7 @@ User.prototype.calcTurnTotal = function() {
 function throwDice () {
   var diceRoll = Math.floor( Math.random() * 6 ) +1;
   console.log(diceRoll);
-  currentUser.isOne();
-  console.log("currentUser.isOne", currentUser.isOne());
+  currentUser.isOne(diceRoll);
 }
 
 // User Interface logic
@@ -51,10 +52,11 @@ function switchUser() {
   } else {
     currentUser = user1;
   }
+  console.log("CurrentUser is ", currentUser.userNumber);
 }
 
-var user1 = new User(0, 0, 0, 1);
-var user2 = new User(0, 0, 0, 2);
+var user1 = new User(1, 0, 0, 1);
+var user2 = new User(1, 0, 0, 2);
 
 var currentUser = user1;
 
