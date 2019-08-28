@@ -1,0 +1,31 @@
+h1 {
+  text-align: center;
+}
+
+
+#dice-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+.user1,
+.user2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+label {
+  margin-top: 10px;
+}

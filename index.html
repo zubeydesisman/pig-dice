@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <title>Pig Dice</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Pig Dice</h1>
+      <form class="form-group" action="index.html" method="post" id="dice-section">
+        <label for="dice">Dice number</label>
+        <input id="dice" type="text">
+        <div class="">
+          <button type="submit" name="button" class="btn btn-info">Throw</button>
+          <button type="submit" name="button" class="btn btn-warning">Hold!</button>
+        </div>
+      </form>
+      <!-- reset button?: https://fontawesome.com/v4.7.0/icon/refresh -->
+      <div class="row">
+        <div class="col-md-6 user1">
+          <h2>User 1</h2>
+          <label for="throw-total1">Throw total:</label>
+          <input type="text" name="throw-total1">
+          <label for="score1">Score total:</label>
+          <input type="text" name="score1">
+        </div>
+        <div class="col-md-6 user2">
+          <h2>User 2</h2>
+          <label for="throw-total2">Throw total:</label>
+          <input type="text" name="throw-total2">
+          <label for="score2">Score total:</label>
+          <input type="text" name="score2">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
