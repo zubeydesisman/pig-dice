@@ -33,6 +33,12 @@ User.prototype.sumScore = function() {
   } else {
     this.scoreTotal += this.turnTotal;
   }
+  if(this.scoreTotal >= 100) {
+    $(".modal").modal();
+    $("#close").click(() => {
+      $(".modal").modal('hide');
+    });
+  }
 
   console.log('score total: ', this.scoreTotal);
 }
@@ -57,10 +63,12 @@ function throwDice () {
 function clickHold() {
   $("input#dice").val("");
   $("input#throw-total").val("");
-  //currentUser.scoreTotal += currentUser.turnTotal;
-  $("input#score1").val(currentUser.scoreTotal);
-  $("input#score2").val(currentUser.scoreTotal);
   currentUser.sumScore();
+  if(currentUser === user1) {
+    $("input#score1").val(currentUser.scoreTotal);
+  } else {
+    $("input#score2").val(currentUser.scoreTotal);
+  }
 }
 
 function switchUser() {
