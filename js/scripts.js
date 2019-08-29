@@ -1,104 +1,75 @@
-//Business logic
-// User constructor
-function User (diceNumber, scoreTotal, turnTotal, userNumber) {
+
+function PigDice (diceNumber, scoreTotal, turnTotal, currentUser) {
   this.diceNumber = diceNumber,
-  this.scoreTotal = scoreTotal,
   this.turnTotal = turnTotal,
-  this.userNumber = userNumber
+  this.currentUser = currentUser,
+  this.user1 = 1,
+  this.user2 = 2,
+  this.score1 = 0,
+  this.score2 = 0
 }
 
-User.prototype.isOne = function(diceRoll) {
-  this.diceNumber = diceRoll;
-  if(this.diceNumber === 1) {
-    switchUser();
-    $("input#throw-total").val("0");
-  } else {
-    return this.diceNumber;
-  }
-}
+var pigDice = new PigDice(1, 0, 0, 1);
 
-User.prototype.calcTurnTotal = function() {
+PigDice.prototype.updateTurnTotal = function() {
   if(this.diceNumber === 1) {
     this.turnTotal = 0
-
-    //$("input#throw-total").val("");
-  } else if(this.turnTotal += this.diceNumber){
-    $("input#throw-total").val(this.turnTotal);
+  } else {
+    this.turnTotal += this.diceNumber
   }
+  $("input#throw-total").val(this.turnTotal);
 }
 
-User.prototype.sumScore = function() {
-  if(this.scoreTotal === 0) {
-    this.scoreTotal = this.turnTotal;
+PigDice.prototype.throwDice = function() {
+  var diceRoll = Math.floor( Math.random() * 6 ) +1;
+  $("input#dice").val(diceRoll);
+  this.diceNumber = diceRoll;
+  if(this.diceNumber === 1) {
+    this.turnTotal = 0;
+    this.switchUser();
   } else {
-    this.scoreTotal += this.turnTotal;
+    this.turnTotal += this.diceNumber
   }
-  if(this.scoreTotal >= 100) {
+  $("input#throw-total").val(this.turnTotal);
+  $("input#current-user").val(this.currentUser);
+}
+
+PigDice.prototype.clickHold = function() {
+  $("input#dice").val("");
+  $("input#throw-total").val("");
+  if(this.currentUser === this.user1) {
+    this.score1 += this.turnTotal;
+    $("input#score1").val(this.score1);
+  } else {
+    this.score2 += this.turnTotal;
+    $("input#score2").val(this.score2);
+  }
+  this.turnTotal = 0;
+  this.switchUser();
+  if(this.score1 >= 100 || this.score2 >=100) {
     $(".modal").modal();
     $("#close").click(() => {
       $(".modal").modal('hide');
     });
   }
-
-  console.log('score total: ', this.scoreTotal);
+  $("input#current-user").val(this.currentUser);
 }
-
-// Check through dice and update turn total, continue the user throw 1 or click hold
-
-// if the user get 1, turn total will be cleared out and turn ends and
-// if the user click hold, turn total will be added to sore total then turn ends
-// every times turn ends turnNumber++
-
-// Todo: When a user sore total becomes more than 100, the user wins.
-
-// Get random dice number
-function throwDice () {
-  var diceRoll = Math.floor( Math.random() * 6 ) +1;
-  $("input#dice").val(diceRoll);
-  currentUser.isOne(diceRoll);
-  currentUser.calcTurnTotal();
-}
-
-// User Interface logic
-function clickHold() {
-  $("input#dice").val("");
-  $("input#throw-total").val("");
-  currentUser.sumScore();
-  if(currentUser === user1) {
-    $("input#score1").val(currentUser.scoreTotal);
+PigDice.prototype.switchUser = function() {
+  if (this.currentUser === this.user1){
+    this.currentUser = this.user2;
   } else {
-    $("input#score2").val(currentUser.scoreTotal);
+    this.currentUser = this.user1;
   }
 }
-
-function switchUser() {
-  if (currentUser == user1){
-    currentUser = user2;
-  } else {
-    currentUser = user1;
-  }
-  currentUser.turnTotal = 0;
-  console.log("CurrentUser is ", currentUser.userNumber);
-}
-
-var user1 = new User(1, 0, 0, 1);
-var user2 = new User(1, 0, 0, 2);
-
-var currentUser = user1;
-
-
+);
 $(document).ready(function(){
-  console.log("CurrentUser is ", currentUser.userNumber);
   $("button#hold").on("click", function (event){
     event.preventDefault();
-    clickHold();
-    switchUser();
+    pigDice.clickHold();
   });
 
   $("button#throw").on("click", function(event){
     event.preventDefault();
-    throwDice();
+    pigDice.throwDice();
   });
-
-
 });
